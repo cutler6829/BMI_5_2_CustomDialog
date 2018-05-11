@@ -93,23 +93,30 @@ public class Bmi extends AppCompatActivity implements View.OnClickListener {
             suggest.setText(R.string.advice_average);
 
         openOptionsDialog();
+        openOptionsDialog1();
+        openOptionsDialog2();
     }
 
     AlertDialog dialog;
     void openOptionsDialog() {
 
-        Uri uri=Uri.parse("https://www.google.com.tw/maps/@23.546162,120.6402133,8z?hl=zh-TW");
-        Intent intent =new Intent(Intent.ACTION_VIEW,uri);
+        Uri uri = Uri.parse("https://www.google.com.tw/maps/@23.546162,120.6402133,8z?hl=zh-TW");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
-
-
-        /*number = "";
+    }
+    void openOptionsDialog2(){
+        number = "";
         findDialogViews();
         setListeners();
         AlertDialog.Builder builder = new AlertDialog.Builder(Bmi.this);
         builder.setTitle("我的撥號鍵盤");
         builder.setView(rootView);
-        dialog = builder.show();*/
+        dialog = builder.show();
+    }
+    void openOptionsDialog1() {
+        Uri uri=Uri.parse("https://tw.yahoo.com/");
+        Intent intent =new Intent(Intent.ACTION_VIEW,uri);
+        startActivity(intent);
     }
 
     String number = "";
@@ -132,11 +139,12 @@ public class Bmi extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
         menu.add(0,MENU_ABOUT,0,"關於")
-                .setIcon(android.R.drawable.ic_menu_info_details)
+                .setIcon(android.R.drawable.ic_menu_call)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.add(0,MENU_QUIT,0,"離開")
-                .setIcon(android.R.drawable.ic_menu_close_clear_cancel)
+                .setIcon(android.R.drawable.ic_menu_camera)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
@@ -144,12 +152,22 @@ public class Bmi extends AppCompatActivity implements View.OnClickListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case MENU_ABOUT:
+            case R.id.menu_about:
                 openOptionsDialog();
                 break;
-            case MENU_QUIT:
+            case R.id.menu_quit:
                 finish();
                 break;
+            case R.id.item3:
+                Toast.makeText(this,item.getTitle(),Toast.LENGTH_SHORT).show();
+                break;
+            case MENU_ABOUT:
+                openOptionsDialog2();
+                break;
+            case MENU_QUIT:
+                openOptionsDialog1();
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
