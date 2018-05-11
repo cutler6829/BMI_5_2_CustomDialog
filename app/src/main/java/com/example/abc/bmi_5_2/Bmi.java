@@ -98,7 +98,7 @@ public class Bmi extends AppCompatActivity implements View.OnClickListener {
     AlertDialog dialog;
     void openOptionsDialog() {
 
-        Uri uri=Uri.parse("https://tw.yahoo.com/");
+        Uri uri=Uri.parse("https://www.google.com.tw/maps/@23.546162,120.6402133,8z?hl=zh-TW");
         Intent intent =new Intent(Intent.ACTION_VIEW,uri);
         startActivity(intent);
 
@@ -132,8 +132,12 @@ public class Bmi extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0,MENU_ABOUT,0,"關於");
-        menu.add(0,MENU_QUIT,0,"離開");
+        menu.add(0,MENU_ABOUT,0,"關於")
+                .setIcon(android.R.drawable.ic_menu_info_details)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(0,MENU_QUIT,0,"離開")
+                .setIcon(android.R.drawable.ic_menu_close_clear_cancel)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
 
