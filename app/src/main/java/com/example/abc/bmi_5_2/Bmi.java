@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,7 @@ public class Bmi extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_bmi);
         findViews();
         setListeners();
+        registerForContextMenu(submit);
     }
 
     private void findViews() {
@@ -92,9 +94,9 @@ public class Bmi extends AppCompatActivity implements View.OnClickListener {
         else
             suggest.setText(R.string.advice_average);
 
-        openOptionsDialog();
-        openOptionsDialog1();
-        openOptionsDialog2();
+        //openOptionsDialog();
+        //openOptionsDialog1();
+        //openOptionsDialog2();
     }
 
     AlertDialog dialog;
@@ -119,8 +121,8 @@ public class Bmi extends AppCompatActivity implements View.OnClickListener {
         startActivity(intent);
     }
 
-    String number = "";
-    View.OnClickListener dialogListener = new View.OnClickListener() {
+        String number = "";
+        View.OnClickListener dialogListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             int id = ((Button)v).getId();
@@ -139,6 +141,56 @@ public class Bmi extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        createMenu(menu);
+        //getMenuInflater().inflate(R.menu.menu,menu);
+        //menu.add(0,MENU_ABOUT,0,"關於")
+                //.setIcon(android.R.drawable.ic_menu_call)
+                //.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        //menu.add(0,MENU_QUIT,0,"離開")
+                //.setIcon(android.R.drawable.ic_menu_camera)
+                //.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        handleMenuItem(item);
+        /*switch (item.getItemId()){
+            case R.id.menu_about:
+                openOptionsDialog();
+                break;
+            case R.id.menu_quit:
+                finish();
+                break;
+            case R.id.item3:
+                Toast.makeText(this,item.getTitle(),Toast.LENGTH_SHORT).show();
+                break;
+            case MENU_ABOUT:
+                openOptionsDialog2();
+                break;
+            case MENU_QUIT:
+                openOptionsDialog1();
+                break;*/
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            createMenu(menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        handleMenuItem(item);
+        return super.onContextItemSelected(item);
+
+    }
+
+    private void createMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu,menu);
         menu.add(0,MENU_ABOUT,0,"關於")
                 .setIcon(android.R.drawable.ic_menu_call)
@@ -146,11 +198,9 @@ public class Bmi extends AppCompatActivity implements View.OnClickListener {
         menu.add(0,MENU_QUIT,0,"離開")
                 .setIcon(android.R.drawable.ic_menu_camera)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    }
+    private void handleMenuItem(MenuItem item){
         switch (item.getItemId()){
             case R.id.menu_about:
                 openOptionsDialog();
@@ -167,8 +217,6 @@ public class Bmi extends AppCompatActivity implements View.OnClickListener {
             case MENU_QUIT:
                 openOptionsDialog1();
                 break;
-
         }
-        return super.onOptionsItemSelected(item);
     }
 }
